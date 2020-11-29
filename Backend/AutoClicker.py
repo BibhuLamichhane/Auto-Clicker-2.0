@@ -1,6 +1,6 @@
 from pynput.keyboard import Controller as kController
 from pynput.mouse import Controller as mController
-from Backend.stack import LinkedList
+from stack import LinkedList
 
 
 class AutoClicker:
