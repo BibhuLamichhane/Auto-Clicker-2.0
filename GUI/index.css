@@ -1,0 +1,33 @@
+.buttons{
+    width: 60px;
+    height: 30px;
+    margin-bottom: 5px;
+}
+.alphabets {
+    width: 80vw;
+}
+.numbers {
+    width: 80vw;
+    padding-top: 30px;
+}
+.symbols{
+    width: 80vw;
+    padding-top: 30px;
+}
+.tablinks{
+    border: solid black 1px;
+    width: 200px;
+    height: 50px;
+}
+.activeTab{
+    background-color: red;
+    border: solid black 1px;
+    width: 200px;
+    height: 50px;
+}
+.hideContents{
+    display: none;
+}
+.displayContents{
+    display: block;
+}

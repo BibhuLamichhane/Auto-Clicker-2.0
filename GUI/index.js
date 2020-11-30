@@ -1,6 +1,25 @@
-// This file is required by the index.html file and will
-// be executed in the renderer process for that window.
-// No Node.js APIs are available in this process because
-// `nodeIntegration` is turned off. Use `preload.js` to
-// selectively enable features needed in the rendering
-// process.
+function keyboardActive() {
+    let kTab = document.getElementById('keyboard')
+    kTab.className = 'activeTab'
+    let mTab = document.getElementById('mouse')
+    mTab.className = 'tablinks'
+    let k = document.getElementById('key')
+    let m = document.getElementById('mou')
+    k.className = 'displayContents'
+    m.className = 'hideContents'
+}
+
+function mouseActive() {
+    let mTab = document.getElementById('mouse')
+    mTab.className = 'activeTab'
+    let kTab = document.getElementById('keyboard')
+    kTab.className = 'tablinks'
+    let k = document.getElementById('key')
+    let m = document.getElementById('mou')
+    m.className = 'displayContents'
+    k.className = 'hideContents'
+}
+
+document.getElementById('keyboard').addEventListener('click', keyboardActive)
+document.getElementById('mouse').addEventListener('click', mouseActive)
+
