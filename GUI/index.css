@@ -20,7 +20,6 @@
     height: 50px;
 }
 .activeTab{
-    background-color: red;
     border: solid black 1px;
     width: 200px;
     height: 50px;
@@ -30,4 +29,9 @@
 }
 .displayContents{
     display: block;
+}
+.subTab {
+}
+.activeSubTab {
+    background-color: aqua;
 }
