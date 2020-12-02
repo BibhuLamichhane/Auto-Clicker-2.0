@@ -29,6 +29,11 @@ let activeSubTab = (evt) =>{
     subTab.className = 'displayContentsSubTab'
 }
 
+let updateCommands = (evt) => {
+    let output = document.getElementById('textArea')
+    output.value = output.value + evt.currentTarget.id + '\n'
+}
+
 document.getElementById('keyboard').addEventListener('click', keyboardActive)
 document.getElementById('mouse').addEventListener('click', mouseActive)
 
@@ -37,7 +42,12 @@ let number = document.getElementById('numbers')
 let symbol = document.getElementById('symbols')
 let spKeys = document.getElementById('specialKeys')
 let customText = document.getElementById('customText')
+let buttons = []
 
+for (let i = 0; i <= 98; i++){
+    buttons[i] = document.getElementsByClassName('buttons')[i]
+    buttons[i].addEventListener('click', updateCommands)
+}
 alpha.addEventListener('click', activeSubTab)
 number.addEventListener('click', activeSubTab)
 symbol.addEventListener('click', activeSubTab)
