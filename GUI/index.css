@@ -1,6 +1,6 @@
 .buttons{
-    width: 60px;
-    height: 30px;
+    width: 80px;
+    height: 45px;
     margin-bottom: 5px;
 }
 .alphabets {
@@ -16,12 +16,12 @@
 }
 .tablinks{
     border: solid black 1px;
-    width: 200px;
+    width: 265px;
     height: 50px;
 }
 .activeTab{
     border: solid black 1px;
-    width: 200px;
+    width: 265px;
     height: 50px;
 }
 .hideContents{
@@ -40,4 +40,25 @@
 }
 .activeSubTab {
     background-color: aqua;
+}
+.tabs {
+    margin-bottom: 15px;
+}
+.keyboardTabs {
+    margin-bottom: 15px;
+}
+#mou {
+    margin-bottom: 10px;
+}
+.extentedButton{
+    width: 130px;
+    height: 45px;
+    margin-bottom: 5px;
+}
+body {
+    margin-left: 20px;
+}
+.keyboardTabs button {
+    width: 100px;
+    height: 30px;
 }

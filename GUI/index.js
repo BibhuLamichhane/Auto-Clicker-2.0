@@ -34,6 +34,11 @@ let updateCommands = (evt) => {
     output.value = output.value + evt.currentTarget.id + '\n'
 }
 
+let findCoord = (evt) => {
+    evt.currentTarget.className = 'extentedButton'
+    evt.currentTarget.innerHTML = 'Press C to save'
+}
+
 document.getElementById('keyboard').addEventListener('click', keyboardActive)
 document.getElementById('mouse').addEventListener('click', mouseActive)
 
@@ -42,6 +47,7 @@ let number = document.getElementById('numbers')
 let symbol = document.getElementById('symbols')
 let spKeys = document.getElementById('specialKeys')
 let customText = document.getElementById('customText')
+let findCoords = document.getElementById('findCoords')
 let buttons = []
 
 for (let i = 0; i <= 98; i++){
@@ -53,6 +59,7 @@ number.addEventListener('click', activeSubTab)
 symbol.addEventListener('click', activeSubTab)
 spKeys.addEventListener('click', activeSubTab)
 customText.addEventListener('click', activeSubTab)
+findCoords.addEventListener('click', findCoord)
 
 alpha.val = 'alphabets'
 number.val = 'numbers'
