@@ -22,8 +22,11 @@ let mouseActive = () => {
 
 let activeSubTab = (evt) =>{
     let elem = document.getElementById(evt.currentTarget.val)
+    let subTab = document.getElementById(evt.currentTarget.val.slice(0, 5))
+    document.getElementsByClassName('activeSubTab')[0].className = 'subTab'
     elem.className = 'activeSubTab'
-
+    document.getElementsByClassName('displayContentsSubTab')[0].className = 'hideContentsSubTab'
+    subTab.className = 'displayContentsSubTab'
 }
 
 document.getElementById('keyboard').addEventListener('click', keyboardActive)

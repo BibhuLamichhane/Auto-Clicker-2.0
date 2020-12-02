@@ -30,6 +30,12 @@
 .displayContents{
     display: block;
 }
+.hideContentsSubTab{
+    display: none;
+}
+.displayContentsSubTab{
+    display: block;
+}
 .subTab {
 }
 .activeSubTab {
