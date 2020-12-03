@@ -56,7 +56,8 @@
     margin-bottom: 5px;
 }
 body {
-
+    overflow-x: hidden;
+    top: 0;
 }
 .keyboardTabs button {
     width: 100px;
