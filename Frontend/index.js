@@ -31,7 +31,20 @@ let activeSubTab = (evt) =>{
 
 let updateCommands = (evt) => {
     let output = document.getElementById('textArea')
-    output.value = output.value + evt.currentTarget.id + '\n'
+    let time = document.getElementById('time').value
+    try {
+        time = Number(time)
+        if (evt.currentTarget.id !== 'add') {
+            output.value = output.value + 'Press ' + evt.currentTarget.id + ' and pause for ' + time + ' sec \n'
+        } else {
+            let val = document.getElementById('text').value
+            if (val.length > 0) {
+                output.value = output.value + 'Type ' + val + ' and pause for ' + time + ' sec \n'
+            }
+        }
+    }catch (err) {
+        console.log('Invalid Time')
+    }
 }
 
 let findCoord = (evt) => {
@@ -48,6 +61,7 @@ let symbol = document.getElementById('symbols')
 let spKeys = document.getElementById('specialKeys')
 let customText = document.getElementById('customText')
 let findCoords = document.getElementById('findCoords')
+let rightButton = document.getElementById('rightClick')
 let buttons = []
 
 for (let i = 0; i <= 98; i++){
@@ -60,6 +74,7 @@ symbol.addEventListener('click', activeSubTab)
 spKeys.addEventListener('click', activeSubTab)
 customText.addEventListener('click', activeSubTab)
 findCoords.addEventListener('click', findCoord)
+rightButton.addEventListener('click', updateCommands)
 
 alpha.val = 'alphabets'
 number.val = 'numbers'

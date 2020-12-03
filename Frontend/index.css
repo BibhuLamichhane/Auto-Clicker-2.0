@@ -16,12 +16,12 @@
 }
 .tablinks{
     border: solid black 1px;
-    width: 265px;
+    width: 270px;
     height: 50px;
 }
 .activeTab{
     border: solid black 1px;
-    width: 265px;
+    width: 270px;
     height: 50px;
 }
 .hideContents{
@@ -56,9 +56,25 @@
     margin-bottom: 5px;
 }
 body {
-    margin-left: 20px;
+
 }
 .keyboardTabs button {
     width: 100px;
     height: 30px;
+}
+h1 {
+    display: block;
+    width: 100%;
+    transform: translateX(175px);
+}
+#mou {
+    width: 100%;
+}
+.instructions{
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+#text {
+    resize: none;
 }

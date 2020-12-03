@@ -6,7 +6,7 @@ function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 580,
-    height: 600,
+    height: 660,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     },

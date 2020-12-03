@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
     <title>Hello World!</title>
   </head>
   <body>
@@ -138,7 +139,9 @@
 
         <div class="hideContentsSubTab" id="custo">
 
-          <textarea rows = 10 cols="40"></textarea>
+          <textarea rows = 10 cols="65" id="text" placeholder="Custom Text"></textarea><br>
+
+          <button class="buttons" id="add">Add</button>
 
         </div>
 
@@ -158,8 +161,12 @@
 
     <div class="instructions">
 
-    <textarea rows = "20" cols = "40" readonly id="textArea"></textarea>
-
+    <textarea rows = "20" cols = "65" readonly id="textArea"></textarea>
+    <input id="time" placeholder="Pause for ? sec">
+    <input id="repeat" placeholder="Repeat ? times"><br>
+    <button class="buttons" id="start">Start</button>
+    <button class="buttons" id="clear">Clear</button>
+    <button class="buttons" id="remove">Remove</button>
     </div>
     <script src="./index.js"></script>
   </body>
