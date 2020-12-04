@@ -32,8 +32,10 @@ let activeSubTab = (evt) =>{
 let updateCommands = (evt) => {
     let output = document.getElementById('textArea')
     let time = document.getElementById('time').value
-    try {
-        time = Number(time)
+    time = Number(time)
+    if (isNaN(time)) {
+        console.log('Invalid time')
+    }else {
         if (evt.currentTarget.id !== 'add') {
             output.value = output.value + 'Press ' + evt.currentTarget.id + ' and pause for ' + time + ' sec \n'
         } else {
@@ -42,8 +44,6 @@ let updateCommands = (evt) => {
                 output.value = output.value + 'Type ' + val + ' and pause for ' + time + ' sec \n'
             }
         }
-    }catch (err) {
-        console.log('Invalid Time')
     }
 }
 
@@ -81,5 +81,4 @@ number.val = 'numbers'
 symbol.val = 'symbols'
 spKeys.val = 'specialKeys'
 customText.val = 'customText'
-
 
