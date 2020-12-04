@@ -47,7 +47,9 @@ let updateCommands = (evt) => {
             }
             if (val.length > 0 && checked !== '') {
                 output.value = output.value + 'Type "' + val + '" ' + checked + ' and pause for ' + time + ' sec \n'
-                instructions.push('Custom,' + val + ',' + checked + ',' + time)
+                instructionsForBackEnd.push('Custom,' + val + ',' + checked + ',' + time)
+                instructions.push('Type "' + val + '" ' + checked + ' and pause for ' + time + ' sec \n')
+                console.log(instructionsForBackEnd)
             }
         }else if (evt.currentTarget.id === 'leftClick' || evt.currentTarget.id === 'rightClick') {
             let x = document.getElementById('xCoord').value
@@ -61,14 +63,20 @@ let updateCommands = (evt) => {
             }
             if (isNaN(x) || isNaN(y)) {
                 output.value = output.value + 'Press "' + evt.currentTarget.id + '" and pause for ' + time + ' sec \n'
-                instructions.push('Mouse,' + evt.currentTarget.id + ',' + time)
+                instructionsForBackEnd.push('Mouse,' + evt.currentTarget.id + ',' + time)
+                instructions.push('Press "' + evt.currentTarget.id + '" and pause for ' + time + ' sec \n')
+                console.log(instructionsForBackEnd)
             }else{
                 output.value = output.value + 'Press "' + evt.currentTarget.id + '" at (' + x + ' , ' + y + ') and pause for ' + time + ' sec \n'
-                instructions.push('Mouse,' + evt.currentTarget.id + ',' + 'X:' + x + ',Y:' + y + ',' + time)
+                instructionsForBackEnd.push('Mouse,' + evt.currentTarget.id + ',' + 'X:' + x + ',Y:' + y + ',' + time)
+                instructions.push('Press "' + evt.currentTarget.id + '" at (' + x + ' , ' + y + ') and pause for ' + time + ' sec \n')
+                console.log(instructionsForBackEnd)
             }
         }else {
             output.value = output.value + 'Press "' + evt.currentTarget.id + '" and pause for ' + time + ' sec \n'
-            instructions.push('Press,' + evt.currentTarget.id + ',' + time)
+            instructionsForBackEnd.push('Press,' + evt.currentTarget.id + ',' + time)
+            instructions.push('Press "' + evt.currentTarget.id + '" and pause for ' + time + ' sec \n')
+            console.log(instructionsForBackEnd)
         }
     }
 }
@@ -76,6 +84,28 @@ let updateCommands = (evt) => {
 let findCoord = (evt) => {
     evt.currentTarget.className = 'extentedButton'
     evt.currentTarget.innerHTML = 'Press C to save'
+}
+
+let rm = () => {
+    instructionsForBackEnd.pop()
+    instructions.pop()
+    console.log(instructionsForBackEnd)
+    let output = document.getElementById('textArea')
+    output.value = ''
+    for (let i = 0; i < instructions.length; i++){
+        output.value = output.value + instructions[i]
+    }
+}
+
+let clearInstructions = () => {
+    instructionsForBackEnd = []
+    instructions = []
+    let output = document.getElementById('textArea')
+    output.value = ''
+}
+
+let start = () => {
+    console.log('start')
 }
 
 document.getElementById('keyboard').addEventListener('click', keyboardActive)
@@ -88,6 +118,10 @@ let spKeys = document.getElementById('specialKeys')
 let customText = document.getElementById('customText')
 let findCoords = document.getElementById('findCoords')
 let rightButton = document.getElementById('rightClick')
+let startExecution = document.getElementById('start')
+let clear = document.getElementById('clear')
+let removeInstruction = document.getElementById('remove')
+let instructionsForBackEnd = []
 let instructions = []
 let buttons = []
 
@@ -102,6 +136,9 @@ spKeys.addEventListener('click', activeSubTab)
 customText.addEventListener('click', activeSubTab)
 findCoords.addEventListener('click', findCoord)
 rightButton.addEventListener('click', updateCommands)
+startExecution.addEventListener('click', start)
+clear.addEventListener('click', clearInstructions)
+removeInstruction.addEventListener('click', rm)
 
 alpha.val = 'alphabets'
 number.val = 'numbers'
