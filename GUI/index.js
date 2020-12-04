@@ -36,13 +36,39 @@ let updateCommands = (evt) => {
     if (isNaN(time)) {
         console.log('Invalid time')
     }else {
-        if (evt.currentTarget.id !== 'add') {
-            output.value = output.value + 'Press ' + evt.currentTarget.id + ' and pause for ' + time + ' sec \n'
-        } else {
+        if (evt.currentTarget.id === 'add') {
             let val = document.getElementById('text').value
-            if (val.length > 0) {
-                output.value = output.value + 'Type ' + val + ' and pause for ' + time + ' sec \n'
+            let radio = document.getElementsByName('custom')
+            let checked = ''
+            if (radio[0].checked){
+                checked = 'Letter by Letter'
+            }else if (radio[1].checked){
+                checked = 'All at Once'
             }
+            if (val.length > 0 && checked !== '') {
+                output.value = output.value + 'Type "' + val + '" ' + checked + ' and pause for ' + time + ' sec \n'
+                instructions.push('Custom,' + val + ',' + checked + ',' + time)
+            }
+        }else if (evt.currentTarget.id === 'leftClick' || evt.currentTarget.id === 'rightClick') {
+            let x = document.getElementById('xCoord').value
+            let y = document.getElementById('yCoord').value
+            if (x.trim().length === 0 || y.trim().length === 0){
+                x = NaN
+                y = NaN
+            }else{
+                x = Number(x)
+                y = Number(y)
+            }
+            if (isNaN(x) || isNaN(y)) {
+                output.value = output.value + 'Press "' + evt.currentTarget.id + '" and pause for ' + time + ' sec \n'
+                instructions.push('Mouse,' + evt.currentTarget.id + ',' + time)
+            }else{
+                output.value = output.value + 'Press "' + evt.currentTarget.id + '" at (' + x + ' , ' + y + ') and pause for ' + time + ' sec \n'
+                instructions.push('Mouse,' + evt.currentTarget.id + ',' + 'X:' + x + ',Y:' + y + ',' + time)
+            }
+        }else {
+            output.value = output.value + 'Press "' + evt.currentTarget.id + '" and pause for ' + time + ' sec \n'
+            instructions.push('Press,' + evt.currentTarget.id + ',' + time)
         }
     }
 }
@@ -62,6 +88,7 @@ let spKeys = document.getElementById('specialKeys')
 let customText = document.getElementById('customText')
 let findCoords = document.getElementById('findCoords')
 let rightButton = document.getElementById('rightClick')
+let instructions = []
 let buttons = []
 
 for (let i = 0; i <= 98; i++){
