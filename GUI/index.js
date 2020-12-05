@@ -1,3 +1,6 @@
+let {PythonShell} = require('python-shell')
+let p = require("path")
+
 let keyboardActive = () => {
     let kTab = document.getElementById('keyboard')
     kTab.className = 'activeTab'
@@ -105,11 +108,16 @@ let clearInstructions = () => {
 }
 
 let start = () => {
-    console.log('start')
+    let repeat = document.getElementById('repeat').value
+    let options = {
+    scriptPath : p.join(__dirname, '../Backend'),
+    args : [instructions, repeat]
+    }
+    let pyshell = new PythonShell('AutoClicker.py', options)
+    pyshell.on('message', function(message) {
+        console.log(message);
+    })
 }
-
-document.getElementById('keyboard').addEventListener('click', keyboardActive)
-document.getElementById('mouse').addEventListener('click', mouseActive)
 
 let alpha = document.getElementById('alphabets')
 let number = document.getElementById('numbers')
@@ -129,6 +137,9 @@ for (let i = 0; i <= 98; i++){
     buttons[i] = document.getElementsByClassName('buttons')[i]
     buttons[i].addEventListener('click', updateCommands)
 }
+
+document.getElementById('keyboard').addEventListener('click', keyboardActive)
+document.getElementById('mouse').addEventListener('click', mouseActive)
 alpha.addEventListener('click', activeSubTab)
 number.addEventListener('click', activeSubTab)
 symbol.addEventListener('click', activeSubTab)
