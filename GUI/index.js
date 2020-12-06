@@ -109,14 +109,22 @@ let clearInstructions = () => {
 
 let start = () => {
     let repeat = document.getElementById('repeat').value
-    let options = {
-    scriptPath : p.join(__dirname, '../Backend'),
-    args : [instructions, repeat]
+    repeat = Number(repeat.trim())
+    if (isNaN(repeat)){
+        console.log('invalid repeat value')
+    }else {
+        if (repeat === 0) {
+            repeat = 1
+        }
+        let options = {
+        scriptPath : p.join(__dirname, '../Backend'),
+        args : [instructions, repeat]
+        }
+        let pyshell = new PythonShell('AutoClicker.py', options)
+        pyshell.on('message', function(message) {
+            console.log(message);
+        })
     }
-    let pyshell = new PythonShell('AutoClicker.py', options)
-    pyshell.on('message', function(message) {
-        console.log(message);
-    })
 }
 
 let alpha = document.getElementById('alphabets')
