@@ -37,7 +37,9 @@ let updateCommands = (evt) => {
     let time = document.getElementById('time').value
     time = Number(time)
     if (isNaN(time)) {
-        console.log('Invalid time')
+        console.log('Invalid val')
+    }else if (evt.currentTarget.id === 'start') {
+
     }else {
         if (evt.currentTarget.id === 'add') {
             let val = document.getElementById('text').value
@@ -50,9 +52,8 @@ let updateCommands = (evt) => {
             }
             if (val.length > 0 && checked !== '') {
                 output.value = output.value + 'Type "' + val + '" ' + checked + ' and pause for ' + time + ' sec \n'
-                let i = 'Custom,' + val + ',' + checked + ',' + time
+                let i = 'Custom,' + val + ',' + checked + ',' + time + '|'
                 instructionsForBackEnd.push(i)
-                instructionLength.push(i.length)
                 instructions.push('Type "' + val + '" ' + checked + ' and pause for ' + time + ' sec \n')
                 console.log(instructionsForBackEnd)
             }
@@ -68,24 +69,21 @@ let updateCommands = (evt) => {
             }
             if (isNaN(x) || isNaN(y)) {
                 output.value = output.value + 'Press "' + evt.currentTarget.id + '" and pause for ' + time + ' sec \n'
-                let i = 'Mouse,' + evt.currentTarget.id + ',' + time
+                let i = 'Mouse,' + evt.currentTarget.id + ',' + time + '|'
                 instructionsForBackEnd.push(i)
-                instructionLength.push(i.length)
                 instructions.push('Press "' + evt.currentTarget.id + '" and pause for ' + time + ' sec \n')
                 console.log(instructionsForBackEnd)
             }else{
                 output.value = output.value + 'Press "' + evt.currentTarget.id + '" at (' + x + ' , ' + y + ') and pause for ' + time + ' sec \n'
-                let i = 'Mouse,' + evt.currentTarget.id + ',' + 'X:' + x + ',Y:' + y + ',' + time
+                let i = 'Mouse,' + evt.currentTarget.id + ',' + 'X:' + x + ',Y:' + y + ',' + time + '|'
                 instructionsForBackEnd.push(i)
-                instructionLength.push(i.length)
                 instructions.push('Press "' + evt.currentTarget.id + '" at (' + x + ' , ' + y + ') and pause for ' + time + ' sec \n')
                 console.log(instructionsForBackEnd)
             }
         }else {
             output.value = output.value + 'Press "' + evt.currentTarget.id + '" and pause for ' + time + ' sec \n'
-            let i = 'Press,' + evt.currentTarget.id + ',' + time
+            let i = 'Press,' + evt.currentTarget.id + ',' + time + '|'
             instructionsForBackEnd.push(i)
-            instructionLength.push(i.length)
             instructions.push('Press "' + evt.currentTarget.id + '" and pause for ' + time + ' sec \n')
             console.log(instructionsForBackEnd)
         }
@@ -100,7 +98,6 @@ let findCoord = (evt) => {
 let rm = () => {
     instructionsForBackEnd.pop()
     instructions.pop()
-    instructionLength.pop()
     console.log(instructionsForBackEnd)
     let output = document.getElementById('textArea')
     output.value = ''
@@ -112,7 +109,6 @@ let rm = () => {
 let clearInstructions = () => {
     instructionsForBackEnd = []
     instructions = []
-    instructionLength = []
     let output = document.getElementById('textArea')
     output.value = ''
 }
@@ -126,10 +122,10 @@ let start = () => {
         if (repeat === 0) {
             repeat = 1
         }
-        console.log(instructionsForBackEnd + ' from js')
+        // console.log(instructionsForBackEnd[0] + ' from js')
         let options = {
         scriptPath : p.join(__dirname, '../Backend'),
-        args : [instructionsForBackEnd, repeat, instructionLength]
+        args : [instructionsForBackEnd, repeat]
         }
         let pyshell = new PythonShell('AutoClicker.py', options)
         pyshell.on('message', function(message) {
@@ -151,7 +147,6 @@ let removeInstruction = document.getElementById('remove')
 let instructionsForBackEnd = []
 let instructions = []
 let buttons = []
-let instructionLength = []
 
 for (let i = 0; i <= 98; i++){
     buttons[i] = document.getElementsByClassName('buttons')[i]
