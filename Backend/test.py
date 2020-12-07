@@ -1,1 +1,0 @@
-a = ' ,sdffugkfd,    rgifdg, ofigjdfogjfd'
