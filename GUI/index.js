@@ -38,7 +38,7 @@ let updateCommands = (evt) => {
     time = Number(time)
     if (isNaN(time)) {
         console.log('Invalid val')
-    }else if (evt.currentTarget.id === 'start') {
+    }else if (evt.currentTarget.id === 'start' || evt.currentTarget.id === 'findCoords') {
 
     }else {
         if (evt.currentTarget.id === 'add') {
@@ -91,8 +91,24 @@ let updateCommands = (evt) => {
 }
 
 let findCoord = (evt) => {
-    evt.currentTarget.className = 'extentedButton'
-    evt.currentTarget.innerHTML = 'Press C to save'
+    let a = document.getElementById('findCoords')
+    a.innerHTML = 'Move within 3 sec'
+
+    let xCoord = document.getElementById('xCoord')
+    let yCoord = document.getElementById('yCoord')
+    let options = {
+        scriptPath : p.join(__dirname, '../Backend'),
+        args : []
+    }
+    let pyshell = new PythonShell('get_mouse_position.py', options)
+    pyshell.on('message', function(message) {
+        message = message.replaceAll('(', '')
+        message = message.replaceAll(')', '')
+        message = message.split(',')
+        xCoord.value = message[0]
+        yCoord.value = message[1]
+        a.innerHTML = 'Find X,Y'
+    })
 }
 
 let rm = () => {
@@ -122,7 +138,6 @@ let start = () => {
         if (repeat === 0) {
             repeat = 1
         }
-        // console.log(instructionsForBackEnd[0] + ' from js')
         let options = {
         scriptPath : p.join(__dirname, '../Backend'),
         args : [instructionsForBackEnd, repeat]

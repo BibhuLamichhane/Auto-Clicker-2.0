@@ -1,12 +1,12 @@
 from pynput.keyboard import Key, Controller as kController
 from pynput.mouse import Button, Controller as mController
 from stack import LinkedList
+import threading
 import time
 import sys
 
 
 class AutoClicker:
-
     def __init__(self):
         self.keyboard = kController()
         self.mouse = mController()
