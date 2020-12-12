@@ -4,6 +4,7 @@ from stack import LinkedList
 import threading
 import time
 import sys
+from keylogger import Keylogger
 
 
 class AutoClicker:
@@ -90,7 +91,7 @@ class AutoClicker:
                 self.mouse_click(b, int(c))
                 # print(f'Click {b} pause for {int(c)}')
 
-    def execute(self, r):
+    def execute(self, r, kl):
         for _ in range(r):
             curr = self.instructions.head
             if curr.next is None:
@@ -99,9 +100,13 @@ class AutoClicker:
                 curr = curr.next
 
             while curr is not None:
+                if 'c' in kl.logs:
+                    kl.flag = True
+                    break
                 self.instruction_hash(curr)
                 curr = curr.next
-
+            if kl.flag:
+                break
 
 instruct, repeat = sys.argv[1:]
 ac = AutoClicker()
@@ -120,5 +125,11 @@ print(instructions)
 
 for i in instructions:
     ac.add_instruction(i)
+kl = Keylogger()
+thread1 = threading.Thread(target=kl.start)
+thread2 = threading.Thread(target=ac.execute, args=[int(repeat), kl])
 
-ac.execute(int(repeat))
+thread1.start()
+thread2.start()
+thread2.join()
+thread1.join()
