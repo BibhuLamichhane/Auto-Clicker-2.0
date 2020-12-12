@@ -38,7 +38,7 @@ let updateCommands = (evt) => {
     time = Number(time)
     if (isNaN(time)) {
         console.log('Invalid val')
-    }else if (evt.currentTarget.id === 'start' || evt.currentTarget.id === 'findCoords') {
+    }else if (evt.currentTarget.id === 'start' || evt.currentTarget.id === 'findCoords' || evt.currentTarget.id === 'clear') {
 
     }else {
         if (evt.currentTarget.id === 'add') {
