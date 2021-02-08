@@ -4,7 +4,6 @@ from stack import LinkedList
 import threading
 import time
 import sys
-from keylogger import Keylogger
 
 
 class AutoClicker:
@@ -34,23 +33,23 @@ class AutoClicker:
         if lbl:
             print(f'Type {vals} letter by letter and pause for {t}')
             for v in vals:
-                print(f'Typing {v} and pausing for {t}')
-                # self.keyboard.press(v)
-                # self.keyboard.release(v)
+                # print(f'Typing {v} and pausing for {t}')
+                self.keyboard.press(v)
+                self.keyboard.release(v)
                 time.sleep(t)
         elif len(vals) > 1:
             if self.special_keys.get(vals) is None:
-                print(f'Type {vals} and pause for {t}')
-                # self.keyboard.type(vals)
+                # print(f'Type {vals} and pause for {t}')
+                self.keyboard.type(vals)
             else:
-                print(f'Press {self.special_keys[vals]} and pause for {t}')
-                # self.keyboard.press(self.special_keys[vals])
-                # self.keyboard.release(self.special_keys[vals])
+                # print(f'Press {self.special_keys[vals]} and pause for {t}')
+                self.keyboard.press(self.special_keys[vals])
+                self.keyboard.release(self.special_keys[vals])
             time.sleep(t)
         else:
-            print(f'Press {vals} and pause for {t}')
-            # self.keyboard.press(vals)
-            # self.keyboard.release(vals)
+            # print(f'Press {vals} and pause for {t}')
+            self.keyboard.press(vals)
+            self.keyboard.release(vals)
             time.sleep(t)
 
     def mouse_click(self, button, t, x=-1, y=-1):
@@ -68,6 +67,8 @@ class AutoClicker:
 
     def instruction_hash(self, node):
         instruction = node.data
+        print(instruction)
+
         values = instruction.split(',')
         if 'Custom' in values:
             a, b, c, d = values
@@ -75,23 +76,23 @@ class AutoClicker:
                 c = True
             else:
                 c = False
-            self.keyboard_press(b, int(d), c)
+            self.keyboard_press(b, float(d), c)
             # print(f'Type {b} pause for {int(d)} and {c} \n')
         elif 'Press' in values:
             a, b, c = values
-            self.keyboard_press(b, int(c), False)
+            self.keyboard_press(b, float(c), False)
             # print(f'Press {b} pause for {int(c)} and {False}')
         elif 'Mouse' in values:
             if len(values) == 5:
                 a, b, c, d, e = values
-                self.mouse_click(b, int(e), c[2:], d[2:])
+                self.mouse_click(b, float(e), c[2:], d[2:])
                 # print(f'Click {b} pause for {int(e)} at {c[2:]} {d[2:]}')
             else:
                 a, b, c = values
-                self.mouse_click(b, int(c))
+                self.mouse_click(b, float(c))
                 # print(f'Click {b} pause for {int(c)}')
 
-    def execute(self, r, kl):
+    def execute(self, r):
         for _ in range(r):
             curr = self.instructions.head
             if curr.next is None:
@@ -100,36 +101,26 @@ class AutoClicker:
                 curr = curr.next
 
             while curr is not None:
-                if 'c' in kl.logs:
-                    kl.flag = True
-                    break
                 self.instruction_hash(curr)
                 curr = curr.next
-            if kl.flag:
-                break
 
-instruct, repeat = sys.argv[1:]
-ac = AutoClicker()
-inst = ''
+if __name__ == '__main__':
+    instruct, repeat = sys.argv[1:]
+    ac = AutoClicker()
+    inst = ''
 
-for i in instruct:
-    inst += i
+    for i in instruct:
+        inst += i
 
-instructions = inst.split('|')
-instructions = instructions[: len(instructions) - 1]
+    instructions = inst.split('|')
+    instructions = instructions[: len(instructions) - 1]
 
-for i in range(1, len(instructions)):
-    instructions[i] = instructions[i][1:]
+    for i in range(1, len(instructions)):
+        instructions[i] = instructions[i][1:]
 
-print(instructions)
+    print(instructions)
 
-for i in instructions:
-    ac.add_instruction(i)
-kl = Keylogger()
-thread1 = threading.Thread(target=kl.start)
-thread2 = threading.Thread(target=ac.execute, args=[int(repeat), kl])
+    for i in instructions:
+        ac.add_instruction(i)
 
-thread1.start()
-thread2.start()
-thread2.join()
-thread1.join()
+    ac.execute(int(repeat))
